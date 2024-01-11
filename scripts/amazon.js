@@ -49,7 +49,7 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -70,6 +70,10 @@ products.forEach((product) => {
 // 2.2 Put it in the HTML file
 document.querySelector('.js-products-grid')
   .innerHTML = productsHTML;
+  
+// For managing timeout
+let timeOutId = undefined;
+let timeOutProductId = undefined;
 
 // 3. Make it interactive (Add to cart button)
 document.querySelectorAll('.js-add-to-cart')
@@ -111,5 +115,17 @@ document.querySelectorAll('.js-add-to-cart')
       // Making cart quantity interactive
       document.querySelector('.js-cart-quantity')
         .innerHTML = cartQuantity;
+
+      document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 1;
+
+      // User has clicked add to cart button multiple times, then keep only the most recent timeout event by deleting the previous one
+      if(timeOutId != undefined && timeOutProductId === productId){
+        clearTimeout(timeOutId);
+      }
+
+      timeOutProductId = productId;   // Saving the product id of the timed out product to manage later 
+      timeOutId = setTimeout(() => {  // Saving the time out id of the timed out product
+        document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 0;
+      }, 2000);
     });
   });
