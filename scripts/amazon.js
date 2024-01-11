@@ -3,10 +3,12 @@
 // Add import to the concerned js file
 // '../' Go back
 // import only works with live server
-import {cart, addToCart} from '../data/cart.js';
+import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
 //import {cart as myCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+
+updateCart();
 
 // 1. Save the data
 // Saved in data/products.js
@@ -93,27 +95,19 @@ document.querySelectorAll('.js-add-to-cart')
       const productQuantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
 
       addToCart(productId, productQuantity);
-      updateCartQuantity();
+      updateCart();
       displayCartMessage(productId);
     });
   });
-
-  function updateCartQuantity(){
-    // For the shopping cart (Top right)
-    let cartQuantity = 0;
-  
-    cart.forEach((cartItem) => {
-      cartQuantity += cartItem.quantity;
-    });
-  
-    // Making cart quantity interactive
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
-  }
   
   // For managing timeout
   let timeOutId = undefined;
   let timeOutProductId = undefined;
+
+  function updateCart(){
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = updateCartQuantity();
+  }
   
   function displayCartMessage(productId){
     document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 1;

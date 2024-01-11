@@ -44,3 +44,14 @@ export function removeFromCart(productId){
 export function saveCartToStorage(){
   localStorage.setItem('cart', JSON.stringify(cart));
 }
+
+export function updateCartQuantity(){
+  // For the shopping cart (Top right) and checkout page
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  return cartQuantity;
+}
