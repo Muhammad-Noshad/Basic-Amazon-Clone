@@ -1,12 +1,13 @@
 import {cart, removeFromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
+import {formatCurrency} from './utils/money.js';
 
 let cartSummaryHTML = '';
 
 // Radio button having the same name attribute can't be selected together (Only one of them can be selected)
 // They had the same name="option-1" for all the products
 // So I used name="option-${matchingProduct.id}" instead so that they could be selected individually 
+
 
 cart.forEach((cartItem) => {
   const productId = cartItem.id;
