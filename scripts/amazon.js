@@ -1,3 +1,11 @@
+// Add type="module" attribute
+// Add export to the concerned js file
+// Add import to the concerned js file
+// '../' Go back
+// import only works with live server
+import {cart} from '../data/cart.js';
+//import {cart as myCart} from '../data/cart.js';
+
 // 1. Save the data
 // Saved in data/products.js
 
