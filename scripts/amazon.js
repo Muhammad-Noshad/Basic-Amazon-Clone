@@ -5,6 +5,7 @@
 // import only works with live server
 import {cart} from '../data/cart.js';
 //import {cart as myCart} from '../data/cart.js';
+import {products} from '../data/products.js';
 
 // 1. Save the data
 // Saved in data/products.js
