@@ -54,13 +54,47 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart"
+      data-product-id="${product.id}">
         Add to Cart
       </button>
   </div>
   `;
 });
+// DATA Attributes:
+// Like normal attributes e.g. class.
+// Must start with "data-"
+// Syntax : data-XXXXX="XXXXX"
+// e.g. data-product-name="${product.name}"
 
-// 2.2 Put it in the HTML file (Make it interactive)
-document.body.querySelector('.js-products-grid')
+// 2.2 Put it in the HTML file
+document.querySelector('.js-products-grid')
   .innerHTML = productsHTML;
+
+// 3. Make it interactive (Add to cart button)
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;
+
+      let matchingItem = undefined;
+
+      cart.forEach((item) => {
+        if(productId === item.productId){
+          matchingItem = item;
+        }
+      });
+
+      if(matchingItem){
+        matchingItem.quantity++;
+      }
+      else{
+        cart.push({
+          productId: productId,
+          quantity: 1
+        });
+      }
+
+      console.log(cart);
+    });
+  });
