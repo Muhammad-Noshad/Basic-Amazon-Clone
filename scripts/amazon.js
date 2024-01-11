@@ -3,7 +3,7 @@
 // Add import to the concerned js file
 // '../' Go back
 // import only works with live server
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 //import {cart as myCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
@@ -79,10 +79,6 @@ products.forEach((product) => {
 // 2.2 Put it in the HTML file
 document.querySelector('.js-products-grid')
   .innerHTML = productsHTML;
-  
-// For managing timeout
-let timeOutId = undefined;
-let timeOutProductId = undefined;
 
 // 3. Make it interactive (Add to cart button)
 document.querySelectorAll('.js-add-to-cart')
@@ -95,46 +91,40 @@ document.querySelectorAll('.js-add-to-cart')
       // Number() because the value returned by DOM is string
       const productQuantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
 
-      // Finding matching item (if any)
-      let matchingItem = undefined;
-
-      cart.forEach((item) => {
-        if(productId === item.productId){
-          matchingItem = item;
-        }
-      });
-
-      if(matchingItem){   // Matching found -> increment it's quantity by 1
-        matchingItem.quantity += productQuantity;
-      }
-      else{   // Otherwise -> push it into cart
-        cart.push({
-          productId: productId,
-          quantity: productQuantity
-        });
-      }
-
-      // For the shopping cart (Top right)
-      let cartQuantity = 0;
-
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      });
-
-      // Making cart quantity interactive
-      document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity;
-
-      document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 1;
-
-      // User has clicked add to cart button multiple times, then keep only the most recent timeout event by deleting the previous one
-      if(timeOutId != undefined && timeOutProductId === productId){
-        clearTimeout(timeOutId);
-      }
-
-      timeOutProductId = productId;   // Saving the product id of the timed out product to manage later 
-      timeOutId = setTimeout(() => {  // Saving the time out id of the timed out product
-        document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 0;
-      }, 2000);
+      addToCart(productId, productQuantity);
+      updateCartQuantity();
+      displayCartMessage(productId);
     });
   });
+
+  function updateCartQuantity(){
+    // For the shopping cart (Top right)
+    let cartQuantity = 0;
+  
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+    });
+  
+    // Making cart quantity interactive
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity;
+  }
+  
+  // For managing timeout
+  let timeOutId = undefined;
+  let timeOutProductId = undefined;
+  
+  function displayCartMessage(productId){
+    document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 1;
+  
+        // User has clicked add to cart button multiple times, then keep only the most recent timeout event by deleting the previous one
+        if(timeOutId != undefined && timeOutProductId === productId){
+          clearTimeout(timeOutId);
+        }
+  
+        timeOutProductId = productId;   // Saving the product id of the timed out product to manage later 
+        timeOutId = setTimeout(() => {  // Saving the time out id of the timed out product
+          document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 0;
+        }, 2000);
+  }
+  
