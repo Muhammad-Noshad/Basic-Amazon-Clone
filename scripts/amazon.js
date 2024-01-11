@@ -75,8 +75,10 @@ document.querySelector('.js-products-grid')
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
+      // Getting dataset 'data-product-id' from the button
       const productId = button.dataset.productId;
 
+      // Finding matching item (if any)
       let matchingItem = undefined;
 
       cart.forEach((item) => {
@@ -85,16 +87,25 @@ document.querySelectorAll('.js-add-to-cart')
         }
       });
 
-      if(matchingItem){
+      if(matchingItem){   // Matching found -> increment it's quantity by 1
         matchingItem.quantity++;
       }
-      else{
+      else{   // Otherwise -> push it into cart
         cart.push({
           productId: productId,
           quantity: 1
         });
       }
 
-      console.log(cart);
+      // For the shopping cart (Top right)
+      let cartQuantity = 0;
+
+      cart.forEach((item) => {
+        cartQuantity += item.quantity;
+      });
+
+      // Making cart quantity interactive
+      document.querySelector('.js-cart-quantity')
+        .innerHTML = cartQuantity;
     });
   });
