@@ -33,7 +33,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select>
+        <select class="js-quantity-selector-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -77,6 +77,10 @@ document.querySelectorAll('.js-add-to-cart')
     button.addEventListener('click', () => {
       // Getting dataset 'data-product-id' from the button
       const productId = button.dataset.productId;
+     
+      // Getting the product quantity selected by the user
+      // Number() because the value returned by DOM is string
+      const productQuantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
 
       // Finding matching item (if any)
       let matchingItem = undefined;
@@ -88,12 +92,12 @@ document.querySelectorAll('.js-add-to-cart')
       });
 
       if(matchingItem){   // Matching found -> increment it's quantity by 1
-        matchingItem.quantity++;
+        matchingItem.quantity += productQuantity;
       }
       else{   // Otherwise -> push it into cart
         cart.push({
           productId: productId,
-          quantity: 1
+          quantity: productQuantity
         });
       }
 
