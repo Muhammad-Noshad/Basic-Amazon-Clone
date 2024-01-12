@@ -41,8 +41,12 @@ cart.forEach((cartItem) => {
             <span>
               Quantity: <span class="quantity-label">${cartItem.quantity}</span>
             </span>
-            <span class="update-quantity-link link-primary">
+            <span class="show-update-quantity-link link-primary js-update-quantity-link" data-product-id="${matchingProduct.id}">
               Update
+            </span>
+            <input type="number" class="hide-update-quantity-input js-update-quantity-input" data-product-id="${matchingProduct.id}">
+            <span class="hide-update-quantity-save-link link-primary js-update-quantity-save-link" data-product-id="${matchingProduct.id}">
+              Save
             </span>
             <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
               Delete
@@ -118,3 +122,63 @@ document.querySelectorAll('.js-delete-link')
   function updateCheckoutItems(){
     document.querySelector('.js-checkout-items').innerHTML = updateCartQuantity() + ' items';
   }
+
+// For update link
+document.querySelectorAll('.js-update-quantity-link')
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      
+      console.log(`Before : ${link.classList}`);
+
+      // Hiding update link
+      link.classList.remove('show-update-quantity-link');
+      link.classList.add('hide-update-quantity-link');
+
+      console.log(`Before : ${link.classList}`);
+
+      // For input field
+      let inputField;
+
+      // Finding the relevant input field
+      document.querySelectorAll('.js-update-quantity-input')
+      .forEach((input) => {
+        if(input.dataset.productId === productId){
+          inputField = input;
+        }
+      });
+
+      // Showing the relevant field
+      inputField.classList.remove('hide-update-quantity-input');
+      inputField.classList.add('show-update-quantity-input');
+
+      // For save link
+      let saveLink;
+
+      document.querySelectorAll('.js-update-quantity-save-link')
+      .forEach((link) => {
+        if(link.dataset.productId === productId){
+          saveLink = link;
+        }
+      });
+
+      // Showing the relevant save link
+      saveLink.classList.remove('hide-update-quantity-save-link');
+      saveLink.classList.add('show-update-quantity-save-link');
+
+      // For save link
+      saveLink.addEventListener('click', () => {
+        // Hiding the relevant field
+        inputField.classList.remove('show-update-quantity-input');
+        inputField.classList.add('hide-update-quantity-input');
+        
+        // Hiding the relevant save link
+        saveLink.classList.remove('show-update-quantity-save-link');
+        saveLink.classList.add('hide-update-quantity-save-link');
+
+        // Showing update link
+        link.classList.remove('hide-update-quantity-link');
+        link.classList.add('show-update-quantity-link');
+      });
+    });
+  });

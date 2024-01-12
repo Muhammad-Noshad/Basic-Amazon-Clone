@@ -1,1 +1,22 @@
+JS Algorithm
+1. Save the Data (in an array of objects)
+2. Generate HTML for that data
+3. Make it interactive
+
+Modules Algorithm
+1. Add 'type="module"' in the <script> tag of the js file you want to make module.
+2. Add 'export' before the element you want in your module
+3. Write 'import {element name as xyz} from 'Source path'; in the header of your module file.
+
+Points
 1. We can not import from js files which are of type module.
+2. Want to remove a product from the website? => Use '.remove()'.
+3. Want to make an element disappear then reappear at some point, manipulate its opacity using 
+	document.querySelector('.element-class).style.opacity = 1; (Appear)
+	document.querySelector('.element-class).style.opacity = 0; (Disappear)
+
+<span> vs <div> vs <p>
+1. <span> -> inline
+2. <div> -> block
+3. <p> -> block
+-> Thats it.
