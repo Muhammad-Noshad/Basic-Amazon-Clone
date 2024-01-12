@@ -128,14 +128,10 @@ document.querySelectorAll('.js-update-quantity-link')
   .forEach((link) => {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
-      
-      console.log(`Before : ${link.classList}`);
 
       // Hiding update link
       link.classList.remove('show-update-quantity-link');
       link.classList.add('hide-update-quantity-link');
-
-      console.log(`Before : ${link.classList}`);
 
       // For input field
       let inputField;
