@@ -20,3 +20,13 @@ Points
 2. <div> -> block
 3. <p> -> block
 -> Thats it.
+
+External Library
+-> Code that is outside of our code
+-> Simple put the link of that code in the <script> tag
+-> We will use DayJS
+-> But ESM version is better as it can be imported
+-> Syntax:
+		import name from 'path';		no -> {}
+-> This is called default export. Done if we only want to export only one item.
+-> The other one is named export
