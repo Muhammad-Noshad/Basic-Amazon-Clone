@@ -10,7 +10,7 @@ function renderOrderSummary(){
 
     // Radio button having the same name attribute can't be selected together (Only one of them can be selected)
     // They had the same name="option-1" for all the products
-    // So I used name="option-${matchingProduct.id}" instead so that they could be selected individually 
+    // So I used name="option-${matchingProduct.id}" instead so that they could be selected individually
 
 
     cart.forEach((cartItem) => {
@@ -85,13 +85,13 @@ function renderOrderSummary(){
 
     function deliveryOptionsHTML(productId, cartItem){
       let optionsHTML = '';
-      
+
       deliveryOptions.forEach((delivery) => {
         const today = dayjs();
         const deliveryDate = today.add(delivery.deliveryDays, 'days');
         const dateString = deliveryDate.format('dddd, MMMM D');
         const priceString = delivery.priceCents === 0? 'FREE - ' : `$${formatCurrency(delivery.priceCents)} - `;
-        
+
         const isChecked = delivery.id === cartItem.deliveryOptionId ? 'checked' : '';
 
         optionsHTML += `
@@ -99,7 +99,7 @@ function renderOrderSummary(){
           data-product-id="${productId}"
           data-delivery-option-id="${delivery.id}">
             <input type="radio"
-              class="delivery-option-input"
+              class="d elivery-option-input"
               name="delivery-option-${productId}" ${isChecked}>
             <div>
               <div class="delivery-option-date">
@@ -164,8 +164,7 @@ function renderOrderSummary(){
           // For save link
           let saveLink;
 
-          document.querySelectorAll('.js-update-quantity-save-link')
-          .forEach((link) => {
+          document.querySelectorAll('.js-update-quantity-save-link').forEach((link) => {
             if(link.dataset.productId === productId){
               saveLink = link;
             }
@@ -180,11 +179,11 @@ function renderOrderSummary(){
             // Hiding the relevant field
             inputField.classList.remove('show-update-quantity-input');
             inputField.classList.add('hide-update-quantity-input');
-            
+
             // Hiding the relevant save link
             saveLink.classList.remove('show-update-quantity-save-link');
             saveLink.classList.add('hide-update-quantity-save-link');
-            
+
             // Showing update link
             link.classList.remove('hide-update-quantity-link');
             link.classList.add('show-update-quantity-link');
