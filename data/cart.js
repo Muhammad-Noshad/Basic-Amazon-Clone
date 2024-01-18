@@ -58,7 +58,7 @@ export function updateCartQuantity(){
   let cartQuantity = 0;
 
   cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
+    cartQuantity += Number(cartItem.quantity);
   });
 
   return cartQuantity;
@@ -72,4 +72,12 @@ export function updateDeliveryOption(productId, deliveryOptionId){
   });
 
   saveCartToStorage();
+}
+
+export function updateCartItemQuantity(productId, quantity){
+  cart.forEach((cartItem) => {
+    if(cartItem.id === productId){
+      cartItem.quantity = quantity;
+    }
+  });
 }

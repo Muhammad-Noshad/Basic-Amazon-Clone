@@ -9,9 +9,8 @@ Modules Algorithm
 3. Write 'import {element name as xyz} from 'Source path'; in the header of your module file.
 
 Points
-1. We can not import from js files which are of type module.
-2. Want to remove a product from the website? => Use '.remove()'.
-3. Want to make an element disappear then reappear at some point, manipulate its opacity using 
+1. Want to remove a product from the website? => Use '.remove()'.
+2. Want to make an element disappear then reappear at some point, manipulate its opacity using 
 	document.querySelector('.element-class).style.opacity = 1; (Appear)
 	document.querySelector('.element-class).style.opacity = 0; (Disappear)
 
